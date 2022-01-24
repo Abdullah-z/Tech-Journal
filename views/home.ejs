@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="shortcut icon" type="image/jpg" href="https://www.pngkey.com/png/full/350-3502959_air-tech-icon-circle.png" style="background:transparent">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Journal</title>
+</head>
+
+<body style="font-family: 'Montserrat', sans-serif; background-color:#eeeeee;">
+
+    <% include partials/header %>
+
+    
+
+    
+   
+ 
+    <% if (current==1){ %>
+
+        <h1 class="my-4 text-center text-muted">Recent Post</h1>
+    
+    <% posts.forEach(function(i,idx,post){ %>
+            <% if (idx===0){ %>
+
+
+              
+                <p><%= post.content %></p>
+<div class="d-flex justify-content-center">
+                <div class="p-4 p-md-5 mb-4 col-10 text-white rounded bg-image" style="
+                background-image: url(<%= i.image %>);
+               
+              ">
+    <div class="col-md-6 px-0">
+      <h1 class="display-4 fst-italic"><%= i.title %></h1>
+      <p class="lead my-3"><%= i.content.substring(0,149) + "..."  %></p>
+      <p class="lead mb-0"><a href="/posts/<%=i._id%>" class="text-white fw-bold">Continue Reading...</a></p>
+    </div>
+  </div>
+
+</div>
+
+                <% } %>
+                    <% }); %>
+
+                    <% } %>
+                    
+                    <!-- .reverse() -->
+
+                    <!-- .slice(0, -1) -->
+
+
+
+                        <div class="container my-5">
+                            <div class="row">
+                                <h1 class="my-4 text-center text-muted">All Posts</h1>
+
+                                <!-- .slice(1) -->
+                                <% posts.forEach(function(post){ %>
+                               
+                                    <div class="card my-4 mx-auto sm-col-12 md-col-4 lg-col-3 bg-#212121" style="width: 22rem; height: 30rem; background-color: 
+              #e0e0e0;">
+                                        <img class="card-img-top my-3 rounded pulse " height="175rem" src=<%=post.image %> >
+                                        
+                                        <div class="card-body">
+                                            <h5 class="card-text fw-bold">
+                                                <%= post.title%>
+                                            </h5>
+                                            <p>
+                                                <%=post.content.substring(0,99) + "..." %>
+                                            </p>
+                                       
+                                                
+                                            <div class="my-3 mx-2 ">
+                                                
+                                                <p class="position-absolute bottom-0 start-0 my-3 mx-2 small"><%=post.date.substring(3,15) %></p>
+                                                
+                                                
+                                                <a
+                                                  href="/posts/<%=post._id%>" class="text-decoration-none position-absolute bottom-0 end-0 my-3 mx-2">Read More
+                                                    <i class='fas fa-arrow-right'></i></a>
+                                                
+                                                </div>
+                                               
+                                        </div>
+                                        
+
+                                    </div>
+
+                                    
+                                    <% }); %>
+                            </div>
+
+
+                        </div>
+                        
+                        <div class="d-flex justify-content-center">
+     
+                         
+                            <% if (pages > 0) { %>
+                                <ul class="pagination text-center">
+                                    <% if (current == 1) { %>
+                                        <li class="disabled page-link me-1 " style="background-color: #e0e0e0;"><a>First</a></li>
+                                    <% } else { %>
+                                        <li class="page-link me-1" style="background-color: #e0e0e0;"><a href="/home/1">First</a></li>
+                                    <% } %>
+                                    <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                                    <% if (i !== 1) { %>
+                                        <li class="disabled page-link me-1" style="background-color: #e0e0e0;"><a>...</a></li>
+                                    <% } %>
+                                    <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                                        <% if (i == current) { %>
+                                            <li class="active page-link me-1" style="background-color: #e0e0e0;"><a><%= i %></a></li>
+                                        <% } else { %>
+                                            <li class="page-link me-1" style="background-color: #e0e0e0;"><a href="/home/<%= i %>"><%= i %></a></li>
+                                        <% } %>
+                                        <% if (i == Number(current) + 4 && i < pages) { %>
+                                            <li class="disabled page-link me-1" style="background-color: #e0e0e0;"><a>...</a></li>
+                                        <% } %>
+                                    <% } %>
+                                    <% if (current == pages) { %>
+                                        <li class="disabled page-link me-1" style="background-color: #e0e0e0;"><a>Last</a></li>
+                                    <% } else { %>
+                                        <li class="page-link me-1" style="background-color: #e0e0e0;"><a href="/home/<%= pages %>">Last</a></li>
+                                    <% } %>
+                                </ul>
+                            <% } %>
+                           
+                 
+                        </div>
+                     
+                    
+                    
+                        <% include partials/footer %>
+
+
+
+                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+                                integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+                                crossorigin="anonymous"></script>
+
+</body>
+
+</html>
